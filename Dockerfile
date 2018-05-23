@@ -4,6 +4,7 @@ FROM golang:1.10.2-alpine AS builder
 RUN apk --no-cache add \
     git \
     make \
+    ;
 
 WORKDIR /app
 COPY . .
