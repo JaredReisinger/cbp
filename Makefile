@@ -1,5 +1,5 @@
 # Makefile for calculated values
-.DEFAULT_GOAL    := official
+.DEFAULT_GOAL    := cbp
 
 # CBP_ROOT       :=$(shell git rev-parse --show-toplevel)
 VERSION          := $(shell git describe --tags --dirty)
