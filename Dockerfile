@@ -1,7 +1,9 @@
 FROM golang:1.10.2-alpine AS builder
 
-# We also need make...
-RUN apk --no-cache add make
+# We also need git and make...
+RUN apk --no-cache add \
+    git \
+    make \
 
 WORKDIR /app
 COPY . .
