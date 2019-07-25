@@ -1,18 +1,29 @@
 kind: pipeline
 name: default
 
+trigger:
+  branch:
+    - master
+
 steps:
   - name: build-and-test
     image: golang
     commands:
-      - go test
       - go build
+      - go test
       
   - name: publish
     when:
       branch:
         - master
+      event:
+        - push
     image: node
+    environment:
+      GH_TOKEN:
+        from_secret: gh_token
+      GITHUB_TOKEN:
+        from_secret: github_token
     commands:
       - npm install -g semantic-release '@semantic-release/changelog' '@semantic-release/git'
       - semantic-release
