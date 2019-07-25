@@ -26,3 +26,7 @@ On the plus side, because of these restrictions, no advance registration of repo
 ## Why "cbp"?
 
 CBP is the common initialism for the U.S. Customs and Border Protection, which deals with customs and importing, and this service is all about custom import paths.
+
+## Developing / contributing
+
+This repo is "commitizen-friendly", despite being a golang project and not a Node.js/npm project.  The caveat is that you need to have `commitizen` and `cz-conventional-changelog` installed locally/globally and on your path for `git-cz` to give you the interactive prompt.

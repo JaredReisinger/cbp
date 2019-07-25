@@ -77,8 +77,17 @@ func main() {
 }
 
 func serveMeta(w http.ResponseWriter, r *http.Request) {
-	pathPrefix := r.URL.Path
+	importPath, repoPath := calculatePaths(r.URL.Path, importPrefix, repoPrefix)
 
+	repoTemplate.Execute(w, map[string]string{
+		"ImportPath": importPath,
+		"VCS":        vcs,
+		"RepoPath":   repoPath,
+	})
+}
+
+func calculatePaths(requestPath string, importPrefix string, repoPrefix string) (importPath string, repoPath string) {
+	pathPrefix := requestPath
 	// Remember that real requests always start with "/", so we ignore that
 	// character.  Also, we split into 3 since we don't use anything past the
 	// second component.
@@ -90,14 +99,10 @@ func serveMeta(w http.ResponseWriter, r *http.Request) {
 		pathPrefix = fmt.Sprintf("/%s", strings.Join(parts[:2], "/"))
 	}
 
-	importPath := fmt.Sprintf("%s%s", importPrefix, r.URL.Path)
-	repoPath := fmt.Sprintf("%s%s", repoPrefix, pathPrefix)
+	importPath = fmt.Sprintf("%s%s", importPrefix, requestPath)
+	repoPath = fmt.Sprintf("%s%s", repoPrefix, pathPrefix)
 
-	log.Printf("%s => %s", importPath, repoPath)
+	log.Printf("%s => %s => %s", requestPath, importPath, repoPath)
 
-	repoTemplate.Execute(w, map[string]string{
-		"ImportPath": importPath,
-		"VCS":        vcs,
-		"RepoPath":   repoPath,
-	})
+	return
 }
