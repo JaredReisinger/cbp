@@ -9,7 +9,26 @@ RUN go build -ldflags '-d -s -w' -tags netgo -o cbp .
 
 # now create a minimal docker image
 FROM scratch
+
+ARG SOURCE_COMMIT
+ARG DOCKER_TAG
+ARG BUILD_DATE
+
+LABEL \
+  maintainer="jaredreisinger@hotmail.com" \
+  version="${DOCKER_TAG}" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.name="JaredReisinger/cbp" \
+  org.label-schema.description="Super-simple Golang remote import path service" \
+  org.label-schema.url="https://github.com/JaredReisinger/cbp" \
+  org.label-schema.vcs-url="https://github.com/JaredReisinger/cbp" \
+  org.label-schema.vcs-ref="${SOURCE_COMMIT}" \
+  org.label-schema.version="${DOCKER_TAG}" \
+  org.label-schema.build-date="${BUILD_DATE}"
+
 COPY --from=builder /app/cbp /cbp
+
+# TODO: why port 9090? wouldn't 80 make more sense by default?
 EXPOSE 9090
 ENTRYPOINT ["/cbp"]
 
