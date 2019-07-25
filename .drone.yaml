@@ -1,0 +1,19 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: build-and-test
+    image: golang
+    commands:
+      - go test
+      - go build
+      
+  - name: publish
+    when:
+      branch:
+        - master
+    image: node
+    commands:
+      - npm install -g semantic-release '@semantic-release/changelog' '@semantic-release/git'
+      - semantic-release
+      
