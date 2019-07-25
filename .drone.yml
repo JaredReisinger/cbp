@@ -11,7 +11,7 @@ steps:
     commands:
       - go build
       - go test
-      
+
   - name: publish
     when:
       branch:
@@ -27,4 +27,3 @@ steps:
     commands:
       - npm install -g semantic-release '@semantic-release/changelog' '@semantic-release/git'
       - semantic-release
-      
