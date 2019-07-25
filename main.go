@@ -37,7 +37,7 @@ var (
 
 func main() {
 	flag.StringVar(&importPrefix, "import-prefix", "", "the hostname for the custom import path")
-	flag.StringVar(&vcs, "vcs", "", "the VCS for the repos")
+	flag.StringVar(&vcs, "vcs", "", "the VCS for the repos ('git' by default)")
 	flag.StringVar(&repoPrefix, "repo-prefix", "", "the actual hosting repo for the custom import path")
 	flag.Parse()
 
@@ -49,17 +49,17 @@ func main() {
 	showHelp := false
 
 	if importPrefix == "" {
-		fmt.Println("-import-path required")
+		fmt.Println("-import-prefix required")
 		showHelp = true
 	}
 
 	if vcs == "" {
-		fmt.Println("-vcs required")
-		showHelp = true
+		log.Print("Using \"-vcs git\" by default")
+		vcs = "git"
 	}
 
 	if repoPrefix == "" {
-		fmt.Println("-repoPrefix required")
+		fmt.Println("-repo-prefix required")
 		showHelp = true
 	}
 
