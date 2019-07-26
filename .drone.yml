@@ -15,7 +15,9 @@ steps:
       - go build
       - go test
       - go test -race -coverprofile=coverage.txt -covermode=atomic
-      - bash <(curl -s https://codecov.io/bash)
+      # the documented "bash <(curl -s https://codecov.io/bash)" doesn't work
+      - curl -s --output codecov.sh https://codecov.io/bash
+      - bash codecov.sh
 
   - name: publish
     when:
