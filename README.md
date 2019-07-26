@@ -1,13 +1,13 @@
 # cbp
 
-[![Build Status](https://cloud.drone.io/api/badges/JaredReisinger/cbp/status.svg)](https://cloud.drone.io/JaredReisinger/cbp)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-
+[![build status](https://img.shields.io/drone/build/JaredReisinger/cbp?logo=drone)](https://cloud.drone.io/JaredReisinger/cbp)
 [![version](https://images.microbadger.com/badges/version/jaredreisinger/cbp.svg)](https://microbadger.com/images/jaredreisinger/cbp)
 [![commit](https://images.microbadger.com/badges/commit/jaredreisinger/cbp.svg)](https://microbadger.com/images/jaredreisinger/cbp)
 [![layers](https://images.microbadger.com/badges/image/jaredreisinger/cbp.svg)](https://microbadger.com/images/jaredreisinger/cbp)
 [![license](https://images.microbadger.com/badges/license/jaredreisinger/cbp.svg)](https://microbadger.com/images/jaredreisinger/cbp)
+
+[![commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen)](http://commitizen.github.io/cz-cli/)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079)](https://github.com/semantic-release/semantic-release)
 
 Super-simple Golang remote import path service.
 
