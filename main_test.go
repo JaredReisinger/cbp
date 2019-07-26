@@ -41,5 +41,35 @@ func TestCalculatePath(t *testing.T) {
 			t.Errorf("repo path [%d]: expected %s, got %s", i, ex.expectedRepo, actualRepo)
 		}
 	}
+}
 
+func TestValidateOptionsRequired(t *testing.T) {
+	examples := []struct {
+		importPrefix string
+		vcs          string
+		repoPrefix   string
+		ok           bool
+	}{
+		{"", "", "", false},
+		{"x", "", "", false},
+		{"", "x", "", false},
+		{"", "", "x", false},
+		{"x", "x", "", false},
+		{"x", "", "x", true}, // vcs defaults to 'git' when empty
+		{"", "x", "x", false},
+		{"x", "x", "x", true},
+		{"/", "x", "x", false},
+		{"/", "x", "/", false},
+		{"x", "x", "/", false},
+	}
+
+	for i, ex := range examples {
+		*importPrefix = ex.importPrefix
+		*vcs = ex.vcs
+		*repoPrefix = ex.repoPrefix
+		ok := validateOptions()
+		if ok != ex.ok {
+			t.Errorf("options [%d]: expected %v, got %v", i, ex.ok, ok)
+		}
+	}
 }
