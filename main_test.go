@@ -50,7 +50,7 @@ func TestCalculatePath(t *testing.T) {
 	}
 }
 
-func TestValidateOptionsRequired(t *testing.T) {
+func TestValidateOptions(t *testing.T) {
 	examples := []struct {
 		importPrefix string
 		vcs          string
