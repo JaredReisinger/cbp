@@ -58,6 +58,9 @@ func TestValidateOptionsRequired(t *testing.T) {
 		{"x", "", "x", true}, // vcs defaults to 'git' when empty
 		{"", "x", "x", false},
 		{"x", "x", "x", true},
+		{"/", "x", "x", false},
+		{"/", "x", "/", false},
+		{"x", "x", "/", false},
 	}
 
 	for i, ex := range examples {
