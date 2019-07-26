@@ -33,6 +33,7 @@ var (
 	repoPrefix   = flag.String("repo-prefix", "", "the actual hosting repo for the custom import path")
 
 	repoTemplate = template.Must(template.New("repoInfo").Parse(repoInfo))
+	testingOnly  = false
 )
 
 func main() {
@@ -46,7 +47,9 @@ func main() {
 
 	http.HandleFunc("/", serveMeta)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
-	log.Fatal(http.ListenAndServe(addr, nil))
+	if !testingOnly {
+		log.Fatal(http.ListenAndServe(addr, nil))
+	}
 }
 
 func validateOptions() (ok bool) {

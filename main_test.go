@@ -136,3 +136,9 @@ func TestServeMeta(t *testing.T) {
 		}
 	}
 }
+
+// TODO: figure out better testing here?
+func TestMain(t *testing.T) {
+	testingOnly = true
+	main()
+}
