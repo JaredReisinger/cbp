@@ -8,9 +8,14 @@ trigger:
 steps:
   - name: build-and-test
     image: golang
+    environment:
+      CODECOV_TOKEN:
+        from_secret: codecov_token
     commands:
       - go build
       - go test
+      - go test -race -coverprofile=coverage.txt -covermode=atomic
+      - bash <(curl -s https://codecov.io/bash)
 
   - name: publish
     when:
