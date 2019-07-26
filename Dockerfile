@@ -15,11 +15,19 @@ ARG DOCKER_TAG
 ARG BUILD_DATE
 
 LABEL \
-  maintainer="jaredreisinger@hotmail.com" \
-  version="${DOCKER_TAG}" \
+  org.opencontainers.image.title="cbp" \
+  org.opencontainers.image.description="Super-simple Golang remote import path service" \
+  org.opencontainers.image.licenses="MIT" \
+  org.opencontainers.image.url="https://github.com/JaredReisinger/cbp" \
+  org.opencontainers.image.documentation="https://github.com/JaredReisinger/cbp#readme" \
+  org.opencontainers.image.source="https://github.com/JaredReisinger/cbp" \
+  org.opencontainers.image.revision="${SOURCE_COMMIT}" \
+  org.opencontainers.image.version="${DOCKER_TAG}" \
+  org.opencontainers.image.created="${BUILD_DATE}" \
   org.label-schema.schema-version="1.0" \
-  org.label-schema.name="JaredReisinger/cbp" \
+  org.label-schema.name="cbp" \
   org.label-schema.description="Super-simple Golang remote import path service" \
+  org.label-schema.license="MIT" \
   org.label-schema.url="https://github.com/JaredReisinger/cbp" \
   org.label-schema.vcs-url="https://github.com/JaredReisinger/cbp" \
   org.label-schema.vcs-ref="${SOURCE_COMMIT}" \
