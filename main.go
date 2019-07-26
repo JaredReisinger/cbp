@@ -28,44 +28,17 @@ const repoInfo = `
 `
 
 var (
-	importPrefix string
-	vcs          string
-	repoPrefix   string
+	importPrefix = flag.String("import-prefix", "", "the hostname for the custom import path")
+	vcs          = flag.String("vcs", "git", "the VCS for the repos")
+	repoPrefix   = flag.String("repo-prefix", "", "the actual hosting repo for the custom import path")
 
 	repoTemplate = template.Must(template.New("repoInfo").Parse(repoInfo))
 )
 
 func main() {
-	flag.StringVar(&importPrefix, "import-prefix", "", "the hostname for the custom import path")
-	flag.StringVar(&vcs, "vcs", "", "the VCS for the repos ('git' by default)")
-	flag.StringVar(&repoPrefix, "repo-prefix", "", "the actual hosting repo for the custom import path")
 	flag.Parse()
 
-	// ensure any trailing slashes have been removed from importPrefix and
-	// repoPrefix... the calculated paths will *always* start with a slash.
-	importPrefix = strings.TrimRight(importPrefix, "/")
-	repoPrefix = strings.TrimRight(repoPrefix, "/")
-
-	showHelp := false
-
-	if importPrefix == "" {
-		fmt.Println("-import-prefix required")
-		showHelp = true
-	}
-
-	if vcs == "" {
-		log.Print("Using \"-vcs git\" by default")
-		vcs = "git"
-	}
-
-	if repoPrefix == "" {
-		fmt.Println("-repo-prefix required")
-		showHelp = true
-	}
-
-	if showHelp {
-		fmt.Println("")
-		flag.Usage()
+	if !validateOptions() {
 		return
 	}
 
@@ -76,12 +49,46 @@ func main() {
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
+func validateOptions() (ok bool) {
+	showHelp := false
+
+	// there's a better way to check this, and more helpful to the user!
+	// ensure any trailing slashes have been removed from importPrefix and
+	// repoPrefix... the calculated paths will *always* start with a slash.
+	*importPrefix = strings.TrimRight(*importPrefix, "/")
+	*repoPrefix = strings.TrimRight(*repoPrefix, "/")
+
+	if *importPrefix == "" {
+		fmt.Println("-import-prefix required")
+		showHelp = true
+	}
+
+	if *repoPrefix == "" {
+		fmt.Println("-repo-prefix required")
+		showHelp = true
+	}
+
+	if showHelp {
+		fmt.Println("")
+		flag.Usage()
+		return
+	}
+
+	if *vcs == "" {
+		log.Print("Using \"-vcs git\" by default")
+		*vcs = "git"
+	}
+
+	ok = true
+	return
+}
+
 func serveMeta(w http.ResponseWriter, r *http.Request) {
-	importPath, repoPath := calculatePaths(r.URL.Path, importPrefix, repoPrefix)
+	importPath, repoPath := calculatePaths(r.URL.Path, *importPrefix, *repoPrefix)
 
 	repoTemplate.Execute(w, map[string]string{
 		"ImportPath": importPath,
-		"VCS":        vcs,
+		"VCS":        *vcs,
 		"RepoPath":   repoPath,
 	})
 }
