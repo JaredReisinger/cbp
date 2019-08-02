@@ -1,8 +1,10 @@
 package main
 
-// place holders so that go_get will work.  Do not commit changes, especially
-// the generated one... (can we .gitignore) after the first commit?
-
+// NOTE: This is a placeholder for a "go generate" file.  It is here simply so
+// that naive builds (a la "go get") will succeed by default.  In actual (CI)
+// usage, "go generate" will replace this with actual build/version information.
+// But, since this file is listed in .gitgnore, the generated version will be
+// treated as a transient file and should never accidentally get checked in.
 const (
 	gitVersion = "(unknown)"
 	buildDate  = "(unknown)"
