@@ -1,3 +1,7 @@
+# ignore stub build_info.go by default, so that generated content doesn't
+# get committed
+build_info.go
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
