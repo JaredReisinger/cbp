@@ -1,4 +1,4 @@
-//go:generate go run ./generate_build_info.go
+//go:generate go run -v ./generate_build_info.go
 
 package main // import "github.com/JaredReisinger/cbp"
 

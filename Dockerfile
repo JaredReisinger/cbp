@@ -1,13 +1,18 @@
 FROM golang:alpine AS builder
 
+RUN apk add --no-cache git
+
 WORKDIR /app
 COPY . .
 
-RUN go generate -v -x
 # create a static image, from:
 #  https://github.com/docker-library/golang/issues/152
-RUN go build -ldflags '-d -s -w' -tags netgo -o cbp .
+RUN \
+  go get && \
+  go generate -v && \
+  go build -ldflags '-d -s -w' -tags netgo -o cbp .
 
+# ----------------------------------------------------------------------
 # now create a minimal docker image
 FROM scratch
 

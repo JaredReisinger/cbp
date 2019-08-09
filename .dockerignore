@@ -1,1 +1,2 @@
-.git/
+# Need .git so that "git describe" (from go generate) will work
+#.git/
