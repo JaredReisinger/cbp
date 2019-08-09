@@ -5,19 +5,37 @@ trigger:
   branch:
     - master
 
+# we want tags (for go generate), so we need to make cloning an explicit step
+clone:
+  disable: true
+
 steps:
+  - name: clone
+    image: plugins/git
+    settings:
+      tags: true
+
   - name: build-and-test
     image: golang
-    environment:
-      CODECOV_TOKEN:
-        from_secret: codecov_token
+    # environment:
+    #   CODECOV_TOKEN:
+    #     from_secret: codecov_token
     commands:
-      - go build
-      - go test
-      - go test -race -coverprofile=coverage.txt -covermode=atomic
-      # the documented "bash <(curl -s https://codecov.io/bash)" doesn't work
-      - curl -s --output codecov.sh https://codecov.io/bash
-      - bash codecov.sh
+      # de we need go generate for the tests?
+      - go generate -v -x
+      - go build -v
+      - go test -v
+      - go test -v -race -coverprofile=coverage.txt -covermode=atomic
+      # # the documented "bash <(curl -s https://codecov.io/bash)" doesn't work
+      # # or should I use plugins/codecov?
+      # - curl -s --output codecov.sh https://codecov.io/bash
+      # - bash codecov.sh
+
+  - name: codecov
+    image: plugins/codecov
+    settings:
+      token:
+        from_secret: codecov_token
 
   - name: publish
     when:

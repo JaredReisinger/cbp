@@ -3,6 +3,7 @@ FROM golang:alpine AS builder
 WORKDIR /app
 COPY . .
 
+RUN go generate -v -x
 # create a static image, from:
 #  https://github.com/docker-library/golang/issues/152
 RUN go build -ldflags '-d -s -w' -tags netgo -o cbp .
@@ -36,7 +37,5 @@ LABEL \
 
 COPY --from=builder /app/cbp /cbp
 
-# TODO: why port 9090? wouldn't 80 make more sense by default?
-EXPOSE 9090
+EXPOSE 80
 ENTRYPOINT ["/cbp"]
-
