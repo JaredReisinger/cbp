@@ -56,14 +56,14 @@ func init() {
 		Example: `
   cbp https://github.com/your-name-or-org
 
-	The simplest possibile example; if hosted at "http://go.your-name-or-org.com",
+	The simplest possible example; if hosted at "http://go.your-name-or-org.com",
 	an import requests for "go.your-name-or-org.com/project" would resolve to
 	"https://github.com/your-name-or-org/project".`,
 		Run: run,
 	}
 
 	rootCmd.Flags().StringVarP(&addr, "addr", "a", "", "address/port on which to listen")
-	rootCmd.Flags().IntVarP(&depth, "depth", "d", 0, "number of path segments after the import prefix to the respository root (defaults to 2 minus any segments from the repo-prefix, but a minimum of 1)")
+	rootCmd.Flags().IntVarP(&depth, "depth", "d", 0, "number of path segments after the import prefix to the repository root (defaults to 2 minus any segments from the repo-prefix, but a minimum of 1)")
 	rootCmd.Flags().StringVarP(&importPrefix, "import-prefix", "i", "", "hostname and/or leading path for the custom import path; the 'Host' header of each incoming request is used by default")
 	rootCmd.Flags().StringVarP(&vcs, "vcs", "", "", "version control system (VCS) name for the repos (inferred from repo-prefix, or \"git\" if uncertain)")
 }
