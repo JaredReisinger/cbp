@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/JaredReisinger/cbp/compare/v1.0.0...v1.0.1) (2019-08-09)
+
+
+### Bug Fixes
+
+* **docker build:** ensure git information is availble for docker build ([85a0a5b](https://github.com/JaredReisinger/cbp/commit/85a0a5b))
+
 # [1.0.0](https://github.com/JaredReisinger/cbp/compare/v0.1.0...v1.0.0) (2019-08-09)
 
 
