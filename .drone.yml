@@ -6,6 +6,7 @@ trigger:
     - master
 
 # we want tags (for go generate), so we need to make cloning an explicit step
+# so we can actually request the tags
 clone:
   disable: true
 
@@ -16,20 +17,12 @@ steps:
       tags: true
 
   - name: build-and-test
-    image: golang
-    # environment:
-    #   CODECOV_TOKEN:
-    #     from_secret: codecov_token
+    image: golang:1.14.1
     commands:
-      # de we need go generate for the tests?
       - go generate -v
       - go build -v
       - go test -v
       - go test -v -race -coverprofile=coverage.txt -covermode=atomic
-      # # the documented "bash <(curl -s https://codecov.io/bash)" doesn't work
-      # # or should I use plugins/codecov?
-      # - curl -s --output codecov.sh https://codecov.io/bash
-      # - bash codecov.sh
 
   - name: codecov
     image: plugins/codecov
@@ -37,18 +30,13 @@ steps:
       token:
         from_secret: codecov_token
 
-  - name: publish
+  - name: release
     when:
       branch:
         - master
       event:
         - push
-    image: node
+    image: jaredreisinger/semantic-release:latest
     environment:
-      GH_TOKEN:
-        from_secret: gh_token
       GITHUB_TOKEN:
         from_secret: github_token
-    commands:
-      - npm install -g semantic-release '@semantic-release/changelog' '@semantic-release/git'
-      - semantic-release
