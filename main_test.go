@@ -14,7 +14,7 @@ import (
 
 func TestCalculatePath(t *testing.T) {
 	importPrefix := "go.example.com"
-	repoPrefix := "ssh://git@git.example.com"
+	repoPrefix := "ssh://git@git.example.com/"
 
 	examples := []struct {
 		requestPath    string
@@ -35,6 +35,11 @@ func TestCalculatePath(t *testing.T) {
 			"/shortpath",
 			"go.example.com/shortpath",
 			"ssh://git@git.example.com/shortpath",
+		},
+		{
+			"/",
+			"go.example.com/",
+			"ssh://git@git.example.com/",
 		},
 	}
 
@@ -154,7 +159,7 @@ func (f *fakeWriter) WriteHeader(int) {
 
 func TestServeMeta(t *testing.T) {
 	importPrefix = "IMPORT"
-	repoPrefix = "REPO"
+	repoPrefix = "REPO/"
 	vcs = "VCS"
 
 	examples := []struct {

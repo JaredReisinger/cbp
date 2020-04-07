@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"math"
 	"net/http"
 	"net/url"
 	"os"
@@ -190,9 +191,8 @@ func calculatePaths(requestPath string, importPrefix string, repoPrefix string) 
 
 	// For zero, one, or two parts, the existing prefix (path) is good.  For
 	// anything longer, we shorten it to just the first two (org/repo).
-	if len(parts) > 2 {
-		pathPrefix = fmt.Sprintf("/%s", strings.Join(parts[:2], "/"))
-	}
+	limit := int(math.Min(float64(len(parts)), 2))
+	pathPrefix = strings.Join(parts[:limit], "/")
 
 	importPath = fmt.Sprintf("%s%s", importPrefix, requestPath)
 	repoPath = fmt.Sprintf("%s%s", repoPrefix, pathPrefix)
