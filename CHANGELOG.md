@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/JaredReisinger/cbp/compare/v1.0.2...v1.0.3) (2020-04-07)
+
+
+### Bug Fixes
+
+* fix duplicated '/' in path ([a527352](https://github.com/JaredReisinger/cbp/commit/a527352be8b2b2a712a80bde08e9c0809d25864f))
+
 ## [1.0.2](https://github.com/JaredReisinger/cbp/compare/v1.0.1...v1.0.2) (2019-08-09)
 
 
